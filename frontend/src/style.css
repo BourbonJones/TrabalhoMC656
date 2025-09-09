@@ -13,6 +13,21 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.username {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 60px;
+  font-weight: bold;
+}
+
+.exercise-list {
+  display: flex;
+  flex-direction: column; /* coloca os itens em coluna */
+  gap: 10px; /* espaçamento entre os botões */
+  max-width: 200px; /* largura máxima da lista */
+  margin: 20px auto; /* centraliza na tela */
+}
+
+
 a {
   font-weight: 500;
   color: #646cff;
@@ -75,7 +90,7 @@ button {
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: #000000;
 }
 button:focus,
 button:focus-visible {
@@ -85,7 +100,7 @@ button:focus-visible {
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
-    background-color: #ffffff;
+    background-color: #f1b3b3;
   }
   a:hover {
     color: #747bff;

@@ -92,4 +92,8 @@ app.get("/fases/progresso", authMiddleware, (req, res) => {
 });
 
 const PORT = 3000;
-app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
+if (require.main === module) {
+  app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
+}
+
+module.exports = app; // exporta para o jest

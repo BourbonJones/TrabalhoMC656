@@ -10,25 +10,24 @@ on:
 
 jobs:
   build-and-test:
-    # Continua rodando no Windows
+    # Continua a ser executado no Windows
     runs-on: windows-latest
 
     steps:
       - name: Checkout do Repositório
         uses: actions/checkout@v4
 
-      # A única alteração está aqui!
-      - name: Configurar Node.js (Versão LTS mais recente)
+      - name: Configurar Node.js v20.x
         uses: actions/setup-node@v4
         with:
-          # 'lts/*' instrui a action a instalar a versão Long-Term Support mais recente.
-          # Isso mantém seu pipeline atualizado automaticamente.
-          node-version: 'lts/*'
+          # Usa a versão 20.x, a LTS mais recente, conforme sugerido pelo README
+          node-version: '20.x'
           cache: 'npm'
 
       # --- ETAPAS DO BACKEND ---
       - name: 'Backend: Instalar Dependências'
-        run: npm dev
+        # CORREÇÃO: Usa 'npm ci' para uma instalação limpa e rápida, ideal para CI
+        run: npm ci
         working-directory: ./backend
 
       - name: 'Backend: Rodar Testes'
@@ -37,7 +36,13 @@ jobs:
 
       # --- ETAPAS DO FRONTEND ---
       - name: 'Frontend: Instalar Dependências'
-        run: npm dev
+        # CORREÇÃO: Usa 'npm ci' aqui também
+        run: npm ci
+        working-directory: ./frontend
+
+      - name: 'Frontend: Build do Projeto'
+        # ADIÇÃO CRÍTICA: Compila o projeto Vite/TypeScript antes dos testes
+        run: npm run build
         working-directory: ./frontend
 
       - name: 'Frontend: Rodar Testes'

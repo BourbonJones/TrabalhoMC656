@@ -9,6 +9,11 @@ export default defineConfig({
     environment: 'jsdom'
   },
   server: {
-    port: 5173 
+    port: 5173,
+    proxy: { //chave proxy
+      '/auth': 'http://localhost:3000',
+      '/fases': 'http://localhost:3000',
+      '/user': 'http://localhost:3000'
+    }
   }
 })

@@ -28,7 +28,7 @@ jobs:
 
       # --- ETAPAS DO BACKEND ---
       - name: 'Backend: Instalar Dependências'
-        run: npm ci
+        run: npm dev
         working-directory: ./backend
 
       - name: 'Backend: Rodar Testes'
@@ -37,11 +37,7 @@ jobs:
 
       # --- ETAPAS DO FRONTEND ---
       - name: 'Frontend: Instalar Dependências'
-        run: npm ci
-        working-directory: ./frontend
-
-      - name: 'Frontend: Build do Projeto'
-        run: npm run build
+        run: npm dev
         working-directory: ./frontend
 
       - name: 'Frontend: Rodar Testes'

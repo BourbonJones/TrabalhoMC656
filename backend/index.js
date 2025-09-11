@@ -2,18 +2,23 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const bodyParser = require("body-parser");
+const cors = require("cors"); // integração
+
 
 const app = express();
 app.use(bodyParser.json());
+app.use(cors()); // integração
 
-const SECRET = "segredo123"; // em produção, use variáveis de ambiente
+const SECRET = "segredo123"; 
 
 // "Banco de dados" em memória
 const users = []; // { id, username, password, completed: [] }
 const fases = [
   { id: 1, nome: "Fase 1" },
   { id: 2, nome: "Fase 2" },
-  { id: 3, nome: "Fase 3" }
+  { id: 3, nome: "Fase 3" },
+  { id: 3, nome: "Fase 4" },
+  { id: 3, nome: "Fase 5" }
 ];
 
 // Middleware para autenticação
@@ -29,6 +34,27 @@ function authMiddleware(req, res, next) {
   });
 }
 
+// Integração Front-back
+app.get("/user", (req, res) => {
+  const authHeader = req.headers["authorization"];
+  if (!authHeader) {
+    return res.json({ nome: "Visitante" });
+  }
+  const token = authHeader.split(" ")[1];
+  try {
+    const decoded = jwt.verify(token, SECRET);
+    // decoded contém { id, username } conforme seu login
+    const u = users.find((x) => x.id === decoded.id);
+    const nome = u ? u.username : decoded.username || "Usuário";
+    return res.json({ nome });
+  } catch (err) {
+    // se token inválido, devolve visitante (evita 4xx para chamadas de UI que não estejam logadas)
+    return res.json({ nome: "Visitante" });
+  }
+});
+
+
+
 // Registro
 app.post("/auth/register", (req, res) => {
   const { username, password } = req.body;
@@ -39,7 +65,7 @@ app.post("/auth/register", (req, res) => {
   const newUser = {
     id: users.length + 1,
     username,
-    password, // em produção, use bcrypt!
+    password, 
     completed: []
   };
   users.push(newUser);

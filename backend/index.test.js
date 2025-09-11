@@ -1,6 +1,8 @@
-import request from "supertest"
-import app from "./index"
-import { describe, it, expect } from "vitest"
+import request from "supertest";
+import app from "./index.js";
+import { describe, it, expect } from "vitest";
+
+
 
 describe("API de autenticação e fases", () => {
   let token

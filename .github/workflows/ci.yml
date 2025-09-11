@@ -17,11 +17,11 @@ jobs:
       - name: Checkout do Repositório
         uses: actions/checkout@v4
 
-      - name: Configurar Node.js v20.x
+      - name: Configurar Node.js v24.x
         uses: actions/setup-node@v4
         with:
-          # Usa a versão 20.x, a LTS mais recente, conforme sugerido pelo README
-          node-version: '20.x'
+          # Usa a versão 24.x, a LTS mais recente, conforme sugerido pelo README
+          node-version: '24.x'
           cache: 'npm'
 
       # --- ETAPAS DO BACKEND ---

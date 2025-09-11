@@ -4,7 +4,7 @@ name: CI Pipeline - Frontend e Backend
 # Define os gatilhos que iniciarão o pipeline
 on:
   push:
-    branches: [ main ]
+    
   pull_request:
     branches: [ main ]
 

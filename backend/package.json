@@ -2,22 +2,22 @@
   "name": "backend",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "jest",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "test": "vitest"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "Este backend implementa **Express.js** com autenticação e gerenciamento de fases para cada usuário.",
+  "description": "Este backend implementa Express.js com autenticação e gerenciamento de fases para cada usuário.",
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "body-parser": "^2.2.0",
+    "jsonwebtoken": "^9.0.2"
   },
   "devDependencies": {
-    "body-parser": "^2.2.0",
-    "jest": "^30.1.3",
-    "jsonwebtoken": "^9.0.2",
     "nodemon": "^3.1.10",
     "supertest": "^7.1.4",
     "vitest": "^3.2.4"

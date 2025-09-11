@@ -1,8 +1,8 @@
-// index.js
-const express = require("express");
-const jwt = require("jsonwebtoken");
-const bodyParser = require("body-parser");
-const cors = require("cors"); // integração
+import express from "express";
+import jwt from "jsonwebtoken";
+import bodyParser from "body-parser";
+import cors from "cors"; // integração
+import { fileURLToPath } from "url";
 
 
 const app = express();
@@ -72,6 +72,11 @@ app.post("/auth/register", (req, res) => {
   res.json({ message: "Usuário registrado com sucesso" });
 });
 
+// Listar fases
+app.get("/", (req, res) => {
+  res.json({message: "funciona"});
+});
+
 // Login
 app.post("/auth/login", (req, res) => {
   const { username, password } = req.body;
@@ -118,8 +123,12 @@ app.get("/fases/progresso", authMiddleware, (req, res) => {
 });
 
 const PORT = 3000;
-if (require.main === module) {
+
+// Converte import.meta.url para path do sistema
+const __filename = fileURLToPath(import.meta.url);
+
+if (__filename === process.argv[1]) {
   app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
 }
 
-module.exports = app; // exporta para o jest
+export default app; // exporta para testes (Vitest ou outros)

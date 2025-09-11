@@ -9,7 +9,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors()); // integração
 
-const SECRET = "segredo123"; // em produção, use variáveis de ambiente
+const SECRET = "segredo123"; 
 
 // "Banco de dados" em memória
 const users = []; // { id, username, password, completed: [] }

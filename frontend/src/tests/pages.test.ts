@@ -1,3 +1,6 @@
+/**
+ * @vitest-environment jsdom
+ */
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { loadPage } from '.././pages'
 import { waitFor } from '@testing-library/dom'

@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "test": "vitest",
+    "test": "vitest run",
     "preview": "vite preview"
   },
   "devDependencies": {
@@ -18,5 +18,8 @@
     "vite-plugin-string": "^1.2.3",
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^3.2.4"
+  },
+  "dependencies": {
+    "24": "^0.0.0"
   }
 }

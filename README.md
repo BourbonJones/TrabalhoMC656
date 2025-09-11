@@ -4,7 +4,7 @@
 Leonardo da Silva Giovanelli de Santana | RA: 256472  
 André Macarini da Silva | RA: 246929  
 André Rocco Drisostes | RA: 194148
-Pablo Areia Delgado | RA: 223037a
+Pablo Areia Delgado | RA: 223037
 
 ## Descrição do Projeto
 

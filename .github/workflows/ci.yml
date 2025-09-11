@@ -1,0 +1,50 @@
+# Nome do workflow que aparecerá na aba "Actions" do GitHub
+name: CI Pipeline - Frontend e Backend
+
+# Define os gatilhos que iniciarão o pipeline
+on:
+  push:
+    
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    # Continua a ser executado no Windows
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout do Repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js v20.x
+        uses: actions/setup-node@v4
+        with:
+          # Usa a versão 20.x, a LTS mais recente, conforme sugerido pelo README
+          node-version: '20.x'
+          cache: 'npm'
+
+      # --- ETAPAS DO BACKEND ---
+      - name: 'Backend: Instalar Dependências'
+        # CORREÇÃO: Usa 'npm ci' para uma instalação limpa e rápida, ideal para CI
+        run: npm ci
+        working-directory: ./backend
+
+      - name: 'Backend: Rodar Testes'
+        run: npm run test
+        working-directory: ./backend
+
+      # --- ETAPAS DO FRONTEND ---
+      - name: 'Frontend: Instalar Dependências'
+        # CORREÇÃO: Usa 'npm ci' aqui também
+        run: npm ci
+        working-directory: ./frontend
+
+      - name: 'Frontend: Build do Projeto'
+        # ADIÇÃO CRÍTICA: Compila o projeto Vite/TypeScript antes dos testes
+        run: npm run build
+        working-directory: ./frontend
+
+      - name: 'Frontend: Rodar Testes'
+        run: npm run test
+        working-directory: ./frontend

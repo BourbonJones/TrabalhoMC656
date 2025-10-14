@@ -72,12 +72,12 @@ As análises de Benchmarking e Storyboarding, em conjunto, validaram nossa visã
 
 ## Criação de issues baseado na Elicitação de Requisitos feita:
 * Épico **Seleção de Level e Navegação Intuitiva**:
-    * História `Personalização para cada Usuário`
-    * História `Níveis com nomes e divididos por seções` (tipo duolingo)
+    * História `Visualização de Progresso Pessoal`
+    * História `Agrupamento de Níveis por Tópico/Seções de fácil identificação` (inspirado no app duolingo)
 * Épico: **Jogo e Usabilidade**:
-    * História `Montagem do circuito` (fios interativos e portas lógicas desenhadas)
-    * História `Tela de Level Completed`
+    * História `Montagem do circuito com feedback interativo` (fios interativos e portas lógicas desenhadas)
+    * História `Tela de Level Completed (Feedback de Conclusão de Nível)`
 * Épico **Backend e Integração**:
-    * História `Pontuações por movimentos e Progressões do Usuário`
-    * História `Guardamos as explicações no backend também(?)`
+    * História `Pontuações por eficiencia da resolução e Progressões do Usuário`
+    * História `Exibição de Conteúdo Teórico de Apoio`
 

@@ -22,7 +22,7 @@ E, por fim, por validar e refinar hipóteses antes de investir tempo e esforço 
 
 Abaixo, temos o resultado da fase de analise e coleta em formato de tabela. Após essa fase, a equipe se reuniu para discutir os achados e consolidá-los. A etapa mais importante deste passo foi a criação da coluna de decisão e oportunidad já anexa na tabela abaixo, onde transformamos cada observação em uma decisão estratégica ou em um requisito funcional para o nosso sistema.
 
-### Tabela de análise por benchmark ([Link](https://docs.google.com/spreadsheets/u/1/d/1BS_3enUOmxX4qrxAVSiK_rhUEh3JeIieRaWGLciH9K0/edit?usp=sharing) para a tabela para melhor leitura)
+### Tabela de análise por benchmark ([Link](https://docs.google.com/document/d/1yZ72xylaX5zhHT7S6avI8DbszTXyqaEL3_SChMEnjU0/edit?usp=sharing) para a tabela para melhor leitura da tabela e texto)
 
 
 | **Critérios / Plataformas** | **NandGame.com** | **Plays.org** | **Logic.ly (Demo)** | **CircuitSnapGame** | **Decisão / Oportunidades** |
@@ -35,6 +35,7 @@ Abaixo, temos o resultado da fase de analise e coleta em formato de tabela. Apó
 | **Diferenciais** | Design agradável, embora não esteja em português. | Formato visual dos exercícios muito semelhante ao que imaginamos — interativo e intuitivo. | Simulação de alto nível (fora do escopo do projeto). | Boa progressão de dificuldade, mas design pouco atraente, próximo a protoboards reais. | **Conclusão estratégica:** Nossa visão de produto está validada e alinhada com o esperado. Vamos construir uma plataforma que combine a usabilidade de uma interface moderna e confortável com o foco pedagógico de um sistema de exercícios interativos, permitindo ao usuário visualizar as interações lógicas e compreender teoricamente o que acontece — tudo isso sustentado por uma base de autenticação e progresso individualizado. |
 
 
+Dessa forma, entendemos que o caminho que esperavamos para o propjeto se mantem, com algumas breves adições. Nosso projeto deverá ter uma tela de login robusta como tela inicial, a fim de garantir um ambiente para cada usuário ter seus dados/progresso salvo, e ao acessar, ele deve ter os níveis dos jogos, visiveis além de uma opção de tela de aprendizado teórico mais profundo. Os níveis serão liberados conforme o usuário completa anteriores e ganha pontos, garantindo a gameficação do projeto para manter o interesse pelos usuários. Na tela de fases dos jogos, elas deverão ter explicações concisas que contribuam para que o usuário aprenda sobre o sistema que esta observando/interagindo, assim como o funcionamento de sua tabela verdade.
 
  
 ## Elicitação de Requisitos via Storyboard
@@ -62,6 +63,11 @@ Para o storyboard, assumimos a posição de usuário no benchmark mais semelhant
 * Navegação 100% intuitiva. É fácil voltar pra tela de início ou ir para próxima fase direto
 
 ![Tela de Level Completed](/level_complete_screen.png "This is a sample image.")
+
+
+## Conclusão geral das elicitações a partir de ambas as técnicas
+
+As análises de Benchmarking e Storyboarding, em conjunto, validaram nossa visão de produto e a refinaram com direcionamentos estratégicos claros. Entendemos que nossa plataforma se posicionará de forma única ao combinar uma interface limpa e amigável (inspirada no NandGame e Plays.org) com um sistema robusto de exercícios interativos em formato de puzzle. Um diferencial-chave, já em desenvolvimento em nosso projeto, é o sistema de autenticação com progresso individualizado , uma funcionalidade de alto valor ausente na maioria dos concorrentes analisados. A análise de Storyboard detalhou requisitos de usabilidade cruciais, como a necessidade de feedback visual instantâneo (fios que acendem), navegação intuitiva e a oportunidade de um sistema de pontuação mais granular (ex: estrelas por movimentos), que enriquece a gamificação além do simples desbloqueio de níveis. Portanto, nosso foco de desenvolvimento será em criar um ambiente de aprendizado gamificado, que prioriza a prática guiada (com explicações teóricas concisas) e o reforço positivo, tudo sustentado pela nossa base técnica de gerenciamento de usuário. Esses insights consolidados deram origem aos Épicos e Histórias de Usuário detalhados a seguir.
 
 
 ## Criação de issues baseado na Elicitação de Requisitos feita:

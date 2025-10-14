@@ -1,5 +1,7 @@
 # REQUIREMENTS
 
+Link para melhor leitura do conteudo abaixo: ([Link](https://docs.google.com/document/d/1yZ72xylaX5zhHT7S6avI8DbszTXyqaEL3_SChMEnjU0/edit?usp=sharing)
+
 ## Elicitação de Requisitos via Benchmarking
 
 Adotamos a técnica de Benchmarking para a elicitação de requisitos, uma análise competitiva crucial para entender os padrões de mercado e identificar oportunidades de inovação para nossa plataforma de circuitos lógicos.
@@ -70,7 +72,7 @@ Para o storyboard, assumimos a posição de usuário no benchmark mais semelhant
 As análises de Benchmarking e Storyboarding, em conjunto, validaram nossa visão de produto e a refinaram com direcionamentos estratégicos claros. Entendemos que nossa plataforma se posicionará de forma única ao combinar uma interface limpa e amigável (inspirada no NandGame e Plays.org) com um sistema robusto de exercícios interativos em formato de puzzle. Um diferencial-chave, já em desenvolvimento em nosso projeto, é o sistema de autenticação com progresso individualizado , uma funcionalidade de alto valor ausente na maioria dos concorrentes analisados. A análise de Storyboard detalhou requisitos de usabilidade cruciais, como a necessidade de feedback visual instantâneo (fios que acendem), navegação intuitiva e a oportunidade de um sistema de pontuação mais granular (ex: estrelas por movimentos), que enriquece a gamificação além do simples desbloqueio de níveis. Portanto, nosso foco de desenvolvimento será em criar um ambiente de aprendizado gamificado, que prioriza a prática guiada (com explicações teóricas concisas) e o reforço positivo, tudo sustentado pela nossa base técnica de gerenciamento de usuário. Esses insights consolidados deram origem aos Épicos e Histórias de Usuário detalhados a seguir.
 
 
-## Criação de issues baseado na Elicitação de Requisitos feita:
+## Criação de issues baseado na Elicitação de Requisitos feita (detalhamentos e descrições no docs linkado no começo desse requirements ou nos próprios cards/issues do GitHub neste repositório):
 * Épico **Seleção de Level e Navegação Intuitiva**:
     * História `Visualização de Progresso Pessoal`
     * História `Agrupamento de Níveis por Tópico/Seções de fácil identificação` (inspirado no app duolingo)

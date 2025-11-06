@@ -162,17 +162,18 @@ Com base no Diagrama de Componentes (Nível 3 do diagrmaa C4), estes são os pri
 * **Middleware de Autenticação:** Componente de segurança que intercepta requisições em rotas protegidas. Ele valida o token JWT enviado no cabeçalho `Authorization` para garantir que o usuário está autenticado.
 * **Serviço JWT:** Abstrai a lógica de criação e verificação de tokens `jsonwebtoken`, mantendo o `SECRET` seguro e a lógica de expiração centralizada.
 * **Persistência (Em Memória):** (Atualmente em `index.js`) Atua como nossa camada de dados. É responsável por armazenar e recuperar diretamente os dados dos arrays `users` e `fases`.
-```
 
-Descrição dos Principais Componentes e Responsabilidades
+### Descrição dos Principais Componentes e Responsabilidades
 
 
 Para evoluir nossa arquitetura e resolver um acoplamento direto identificado, adotaremos o padrão de projeto Repository.
-  No código atual, os controladores estão acoplados a camada de persistência, manipulando diretamente os dados dos arrays 'users' e 'fases'. Isso causa um problema de manutenção: se quisermos mudar a implementação para um banco de dados real, toda a lógica dos controladores deverá ser mudada também. Para resolver isso o padrão Repository cria uma camada de abstração, onde os controladores passarão a depender de uma interface de repositório ao invés de uma implementação concreta, desacoplando a lógica de negócio(controladores) da lógica de acesso a dados(arrays em memória).
+*  No código atual, os controladores estão acoplados a camada de persistência, manipulando diretamente os dados dos arrays 'users' e 'fases'. Isso causa um problema de manutenção: se quisermos mudar a implementação para um banco de dados real, toda a lógica dos controladores deverá ser mudada também. Para resolver isso o padrão Repository cria uma camada de abstração, onde os controladores passarão a depender de uma interface de repositório ao invés de uma implementação concreta, desacoplando a lógica de negócio(controladores) da lógica de acesso a dados(arrays em memória).
 
-Implementação:
+* **Implementação:**
 
 * 1. Mover os arrays de dados para um módulo dedicado.
 * 2. Criar classes de repositórios para acessar e manipular diretamente os arrays.
 * 3. Refatorar os controladores para que eles apenas importem e usem os métodos dos repositórios.
-* 4. Com essa arquitetura, para migrar para um banco de dados real, precisaremos apenas criar novas classes, sem modificar a lógica de negócio.
+
+ Com essa arquitetura, para migrar para um banco de dados real, precisaremos apenas criar novas classes, sem modificar a lógica de negócio.
+

@@ -1,5 +1,5 @@
 
-import { users } from "../../db.js";
+import { users } from "../../bd.js";
 
 class UserRepository {
 

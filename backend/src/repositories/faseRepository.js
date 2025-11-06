@@ -1,6 +1,6 @@
 
 
-import { fases } from "../../db.js";
+import { fases } from "../../bd.js";
 
 import userRepository from "./userRepository.js";
 

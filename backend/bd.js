@@ -1,6 +1,8 @@
 // "Banco de dados" em memória
 
-export const users = []; // { id, username, password, completed: [] }
+export const users = [
+  {id: 1, username: "Teste", password: "1234"}
+]; // { id, username, password, completed: [] }
 export const fases = [
   { id: 1, nome: "Fase 1" },
   { id: 2, nome: "Fase 2" },

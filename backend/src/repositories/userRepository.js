@@ -1,7 +1,7 @@
 
 import { users } from "../../db.js";
 
-class InMemoryUserRepository {
+class UserRepository {
 
   findByUsername(username) {
     console.log(`[Repo] Buscando usuário: ${username}`);
@@ -26,4 +26,4 @@ class InMemoryUserRepository {
   }
 }
 
-export default new InMemoryUserRepository();
+export default new UserRepository();

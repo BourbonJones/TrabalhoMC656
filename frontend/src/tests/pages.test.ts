@@ -33,6 +33,7 @@ describe('loadPage', () => {
     '/src/pages/home.html': `
       <div>
         <header id="user-header"></header>
+        <div id="exercise-list" class="exercise-list"></div>
       </div>
     `,
     'http://localhost:3000/user': { nome: 'Andre' }

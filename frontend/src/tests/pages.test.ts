@@ -2,48 +2,44 @@
  * @vitest-environment jsdom
  */
 import { describe, it, expect, vi, beforeEach } from 'vitest'
-import { loadPage } from '.././pages'
-import { waitFor } from '@testing-library/dom'
-// cria um container fake para injetar as páginas
+import { loadPage } from '../pages'
+
+// 1. Configura o ambiente DOM falso antes de cada teste
 beforeEach(() => {
   document.body.innerHTML = `<div id="app"></div>`
+  vi.restoreAllMocks() // Limpa mocks anteriores
 })
 
-// mock do fetch
-
-
-function mockFetchOnce(map: Record<string, string | object>) {
-  globalThis.fetch = vi.fn((url: string) => {
-    const response = map[url]
-    if (!response) throw new Error(`No mock for ${url}`)
-
-    return Promise.resolve({
-      text: () =>
-        Promise.resolve(typeof response === 'string' ? response : JSON.stringify(response)),
-      json: () =>
-        Promise.resolve(typeof response === 'object' ? response : { nome: 'aluno' }),
-    } as Response)
-  }) as any
+// 2. Função auxiliar para Mockar o fetch (Simular o servidor)
+function mockFetch(htmlContent: string) {
+  globalThis.fetch = vi.fn().mockResolvedValue({
+    ok: true,
+    text: () => Promise.resolve(htmlContent),
+  } as Response)
 }
 
-
 describe('loadPage', () => {
-  it('mostra o nome do usuário vindo do backend', async () => {
-  mockFetchOnce({
-    '/src/pages/home.html': `
-      <div>
-        <header id="user-header"></header>
-        <div id="exercise-list" class="exercise-list"></div>
-      </div>
-    `,
-    'http://localhost:3000/user': { nome: 'Andre' }
+  it('deve carregar o arquivo HTML e injetar dentro da div #app', async () => {
+    // Cenário:
+    const htmlFalso = '<h1>Conteúdo de Teste</h1>'
+    mockFetch(htmlFalso)
+
+    // Ação:
+    await loadPage('/pagina-qualquer.html')
+
+    // Verificação:
+    // O loadPage cumpriu sua ÚNICA responsabilidade? (Colocar o HTML na tela)
+    const app = document.querySelector('#app')
+    expect(app?.innerHTML).toBe(htmlFalso)
   })
+  
+  it('deve logar erro se o fetch falhar', async () => {
+    // Mockando erro
+    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
+    globalThis.fetch = vi.fn().mockResolvedValue({ ok: false } as Response)
 
-  await loadPage('/src/pages/home.html')
+    await loadPage('/caminho-errado.html')
 
-  await waitFor(() => {
-    expect(document.querySelector('#user-header')?.textContent).toBe('Olá, Andre')
+    expect(consoleSpy).toHaveBeenCalled()
   })
 })
- }
-)

@@ -1,6 +1,6 @@
 // src/pages.ts
 
-// A única responsabilidade desta função é: Buscar o arquivo HTML e Colocar o texto dentro da div #app
+// A única responsabilidade desta função é: Buscar o arquivo HTML e injetar na div #app
 export async function loadPage(pagePath: string) {
   try {
     const response = await fetch(pagePath)
@@ -10,7 +10,9 @@ export async function loadPage(pagePath: string) {
     const app = document.querySelector<HTMLDivElement>('#app')!
     app.innerHTML = html
     
-    // NENHUMA lógica de negócio ou criação deve ficar aqui.
+    // Lógica de negócio, criação de botões e fetch de usuário 
+    // foram movidos para o main.ts para respeitar a arquitetura MVC.
+    
   } catch (error) {
     console.error(error)
   }

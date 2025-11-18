@@ -2,11 +2,9 @@
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -27,7 +25,7 @@
   margin: 20px auto; 
 }
 
-
+/* Conflito resolvido: Mantendo os estilos de link */
 a {
   font-weight: 500;
   color: #646cff;
@@ -45,37 +43,11 @@ body {
   min-height: 100vh;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
 #app {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vanilla:hover {
-  filter: drop-shadow(0 0 2em #3178c6aa);
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
 }
 
 button {
@@ -114,6 +86,7 @@ button:focus-visible {
 
 #game-board {
   position: relative;
+  /* width é controlado pelo JS */
   height: 500px; 
   background-color: #1e1e1e;
   margin: 20px auto;
@@ -148,6 +121,12 @@ button:focus-visible {
   font-family: monospace;
   font-weight: bold;
   user-select: none;
+  position: absolute;
+  z-index: 10; 
+}
+
+svg {
+  z-index: 1; /* Garante que fios fiquem atrás */
 }
 
 .component:active {
@@ -197,7 +176,7 @@ button:focus-visible {
     transition: background-color 0.3s, box-shadow 0.3s;
 }
 
-/* MÁGICA AQUI: Se o componente pai (.component) tem a classe .on, a saída acende */
+/* Se o componente pai (.component) tem a classe .on, a saída acende */
 .component.on .output-node {
     background-color: #00ff00; 
     box-shadow: 0 0 15px #00ff00; 

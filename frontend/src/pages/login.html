@@ -1,8 +1,15 @@
-<div>
-  <h2>Login</h2>
+<div class="container-login">
+  <h1>Login</h1>
+  
   <input type="text" id="username" placeholder="Usuário" />
   <input type="password" id="password" placeholder="Senha" />
-  <button id="btn-login">Entrar</button>
+  
+  <div class="actions">
+    <button id="btn-login" class="primary">Entrar</button>
+    <button id="btn-guest" class="secondary">Acessar como Visitante</button>
+  </div>
 
-  <p>Não tem conta? <a href="#" id="link-register">Registrar</a></p>
+  <p>
+    Não tem conta? <a id="link-register" href="#">Registre-se aqui</a>
+  </p>
 </div>

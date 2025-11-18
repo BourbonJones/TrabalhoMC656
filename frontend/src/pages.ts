@@ -9,9 +9,7 @@ export async function loadPage(pagePath: string) {
     const html = await response.text()
     const app = document.querySelector<HTMLDivElement>('#app')!
     app.innerHTML = html
-    
-    // Lógica de negócio, criação de botões e fetch de usuário 
-    // foram movidos para o main.ts para respeitar a arquitetura MVC.
+    // Lógica de negócio, criação de botões e fetch de usuário foram movidos para o main.ts para respeitar a arquitetura MVC.
     
   } catch (error) {
     console.error(error)

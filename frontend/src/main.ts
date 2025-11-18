@@ -1,6 +1,6 @@
 import './style.css'
 import { loadPage } from './pages.ts'
-// Importa a Engine do jogo (certifique-se que o caminho está correto)
+// Importa a Engine do jogo
 import { CircuitGame } from './game/CircuitEngine.ts';
 
 // Rotas definidas
@@ -14,7 +14,6 @@ const routes: Record<string, string> = {
   ex4: '/src/pages/exercicios/exercicio4.html',
   ex5: '/src/pages/exercicios/exercicio5.html' 
 }
-
 // --- Integração e Autenticação ---
 
 function getAuthTokenHeader(): Record<string, string> | undefined {
@@ -74,27 +73,49 @@ async function marcarProgresso(faseId: number): Promise<boolean> {
 
 // --- Inicialização de Páginas ---
 
+// Esta função encapsula a criação da UI, resolvendo o Code Smell de duplicação no HTML
+function renderizarBotoesFases() {
+  const listContainer = document.getElementById('exercise-list');
+  
+  // Guard Clause: Se não estiver na home (não achou a lista), aborta.
+  if (!listContainer) return; 
+
+  // Limpa lista anterior (Idempotência)
+  listContainer.innerHTML = ''; 
+
+  // DEFINIÇÃO DINÂMICA: Aqui você controla o tamanho da lista num único lugar
+  const totalFases = 5; 
+
+  for (let i = 1; i <= totalFases; i++) {
+    // Criação do elemento no DOM (Melhor que string concat)
+    const btn = document.createElement('button');
+    btn.className = 'btn-marcar';
+    btn.textContent = `Nível ${i}`; // Texto dinâmico
+    
+    // Injeção de Dependência (O botão já nasce sabendo o que fazer)
+    btn.addEventListener('click', () => {
+       // Verifica se a rota existe antes de navegar
+       const routeKey = `ex${i}`;
+       if (routeKey in routes) {
+           navigate(routeKey as keyof typeof routes);
+       } else {
+           alert('Nível em desenvolvimento');
+       }
+    });
+
+    listContainer.appendChild(btn);
+  }
+}
+
 async function initIntegracao() {
-  await carregarUsuario()
+  await carregarUsuario(); // Busca dados do usuário
+  renderizarBotoesFases(); // GERA A LISTA DINÂMICA (Aqui resolvemos o bug de sumir)
 
-  // Botões
-  document.querySelectorAll('.btn-marcar').forEach(btn => {
-    btn.addEventListener('click', async (e) => {
-      const el = e.currentTarget as HTMLElement
-      const idStr = el.getAttribute('data-faseid')
-      if (!idStr) return
-
-      // Navega para o exercício
-      const page = `ex${idStr}` as keyof typeof routes
-      navigate(page)
-    })
-  })
-
+  // Configura logout
   const logoutBtn = document.getElementById('btn-logout')
   if (logoutBtn) {
     logoutBtn.addEventListener('click', () => {
       localStorage.removeItem('token')
-      alert('Você saiu da conta.')
       navigate('login')
     })
   }
@@ -294,24 +315,30 @@ function initLevel(levelId: number) {
 
 async function navigate(route: keyof typeof routes) {
   const path = routes[route]
+  
+  // 1. Carrega o HTML (View)
   await loadPage(path)
 
+  // 2. Executa a Lógica (Controller)
   if (route === 'home') {
-    await initIntegracao()
+    // O await aqui garante que o HTML já existe antes de tentarmos criar os botões
+    await initIntegracao() 
   } else if (route === 'login') {
     await initLoginPage()
   } else if (route === 'register') {
     await initRegisterPage()
   } else if (route.startsWith('ex')) {
-    // 1. Configura botão voltar
+    // Configura botão voltar
     const backBtn = document.getElementById('back-home')
     if (backBtn) backBtn.addEventListener('click', () => navigate('home'))
     
-    // 2. Identifica qual exercício é (ex1 -> 1, ex2 -> 2)
+    // Inicializa o jogo
     const levelId = parseInt(route.replace('ex', ''));
-    
-    // 3. Inicializa o jogo correspondente
-    initLevel(levelId);
+    // Precisamos garantir que a função initLevel exista e seja importada/definida
+    // (Use a função initLevel definida na resposta anterior com o setBoardWidth)
+    if (typeof initLevel === 'function') {
+        initLevel(levelId);
+    }
   }
 }
 

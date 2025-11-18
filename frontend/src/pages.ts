@@ -4,26 +4,15 @@ export async function loadPage(pagePath: string) {
   const app = document.querySelector<HTMLDivElement>('#app')!
   app.innerHTML = html
 
-  switch (pagePath) {
-    case '/src/pages/home.html':
-        setupHomePage()
-        break
+  if (pagePath === '/src/pages/home.html') {
+    setupHomePage()
+    return
+  }
 
-    case '/src/pages/exercicios/exercicio1.html':
-        document.querySelector<HTMLButtonElement>('#back-home')?.addEventListener('click', () => loadPage('/src/pages/home.html'))
-        break
-    case '/src/pages/exercicios/exercicio2.html':
-        document.querySelector<HTMLButtonElement>('#back-home')?.addEventListener('click', () => loadPage('/src/pages/home.html'))
-        break
-    case '/src/pages/exercicios/exercicio3.html':
-        document.querySelector<HTMLButtonElement>('#back-home')?.addEventListener('click', () => loadPage('/src/pages/home.html'))
-        break
-    case '/src/pages/exercicios/exercicio4.html':
-        document.querySelector<HTMLButtonElement>('#back-home')?.addEventListener('click', () => loadPage('/src/pages/home.html'))
-        break
-    case '/src/pages/exercicios/exercicio5.html':
-        document.querySelector<HTMLButtonElement>('#back-home')?.addEventListener('click', () => loadPage('/src/pages/home.html'))
-        break
+  if (pagePath.startsWith('/src/pages/exercicios/')) {
+    document
+      .querySelector<HTMLButtonElement>('#back-home')
+      ?.addEventListener('click', () => loadPage('/src/pages/home.html'))
   }
 }
 
@@ -39,10 +28,18 @@ async function setupHomePage() {
     document.querySelector('#user-header')!.textContent = 'Olá, aluno'
   }
 
-  // Navegação pelos botões de exercício
-  document.querySelector<HTMLButtonElement>('#ex1')?.addEventListener('click', () => loadPage('/src/pages/exercicios/exercicio1.html'))
-  document.querySelector<HTMLButtonElement>('#ex2')?.addEventListener('click', () => loadPage('/src/pages/exercicios/exercicio2.html'))
-  document.querySelector<HTMLButtonElement>('#ex3')?.addEventListener('click', () => loadPage('/src/pages/exercicios/exercicio3.html'))
-  document.querySelector<HTMLButtonElement>('#ex4')?.addEventListener('click', () => loadPage('/src/pages/exercicios/exercicio4.html'))
-  document.querySelector<HTMLButtonElement>('#ex5')?.addEventListener('click', () => loadPage('/src/pages/exercicios/exercicio5.html'))
+  // Mudar no futuro o valor 5 para aceitar dinamicamente
+  const exerciseList = document.querySelector<HTMLDivElement>('#exercise-list')!
+  const totalExercicios = 5 // <-- mude aqui se quiser mais ou menos
+
+  for (let i = 1; i <= totalExercicios; i++) {
+    const btn = document.createElement('button')
+    btn.className = 'btn-marcar'
+    btn.dataset.faseid = String(i)
+    btn.textContent = `Exercício ${i}`
+    btn.addEventListener('click', () =>
+      loadPage(`/src/pages/exercicios/exercicio${i}.html`)
+    )
+    exerciseList.appendChild(btn)
+  }
 }

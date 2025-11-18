@@ -25,6 +25,7 @@
   margin: 20px auto;
 }
 
+/* Estilos de Links */
 a {
   font-weight: 500;
   color: #646cff;
@@ -85,7 +86,7 @@ button:focus-visible {
 
 #game-board {
   position: relative;
-  /* width é controlado pelo JS agora */
+  /* width é controlado pelo JS */
   height: 500px; 
   background-color: #1e1e1e;
   margin: 20px auto;
@@ -121,7 +122,7 @@ button:focus-visible {
   font-weight: bold;
   user-select: none;
   
-  /* CORREÇÃO CRÍTICA PARA O NÍVEL 5 FUNCIONAR */
+  /* CORREÇÃO CRÍTICA: Garante que os componentes fiquem sobre os fios (Nível 5) */
   position: absolute;
   z-index: 10; 
 }
@@ -188,7 +189,7 @@ svg {
 .component svg path {
     transition: fill 0.3s;
 }
-/* Opcional: Se quiser que a porta inteira acenda levemente */
+/* A porta inteira acende levemente */
 .component.on svg path {
     stroke: #00ff00;
 }

@@ -13,8 +13,9 @@
 
 .username {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-size: 60px;
+  font-size: 1.5rem; 
   font-weight: bold;
+  margin: 0; 
 }
 
 .exercise-list {
@@ -25,7 +26,6 @@
   margin: 20px auto;
 }
 
-/* Estilos de Links */
 a {
   font-weight: 500;
   color: #646cff;
@@ -86,7 +86,7 @@ button:focus-visible {
 
 #game-board {
   position: relative;
-  /* width é controlado pelo JS */
+
   height: 500px; 
   background-color: #1e1e1e;
   margin: 20px auto;
@@ -148,7 +148,6 @@ svg {
   stroke: #fff;
 }
 
-/* --- Correção Visual dos Componentes --- */
 
 /* Estilo da Entrada (Quadrado) */
 .input-box {
@@ -189,7 +188,95 @@ svg {
 .component svg path {
     transition: fill 0.3s;
 }
+
 /* A porta inteira acende levemente */
 .component.on svg path {
     stroke: #00ff00;
+}
+
+/* --- Login adjustments --- */
+
+/* Container da Tela de Login */
+.container-login {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 300px;
+  margin: 50px auto;
+}
+
+/* Campos de texto (Input) */
+.container-login input {
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #444;
+  background: #333;
+  color: white;
+  font-size: 1em;
+}
+
+/* Grupo de Botões */
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* Botão Primário (Azul - Para Login) */
+.primary {
+  background-color: #646cff;
+  color: white;
+  border: none;
+}
+.primary:hover {
+  background-color: #535bf2;
+  border-color: #535bf2;
+}
+
+/* Botão Secundário (Transparente - Para Visitante) */
+.secondary {
+  background-color: transparent;
+  border: 1px solid #666;
+  color: #aaa;
+}
+.secondary:hover {
+  border-color: #fff;
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* --- Ajuste do layout home --- */
+
+header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;      
+  gap: 15px;               
+  padding: 20px 0;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #444;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+}
+
+.username {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* Botão um pouco mais largo para ficar bonito centralizado */
+#btn-logout {
+  background-color: transparent;
+  border: 1px solid #646cff;
+  color: #646cff;
+  padding: 8px 32px; 
+  font-size: 0.9rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin: 0;
 }

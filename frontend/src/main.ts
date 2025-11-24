@@ -106,25 +106,57 @@ function renderizarBotoesFases() {
 }
 
 async function initIntegracao() {
-  await carregarUsuario(); // Busca dados do usuário
-  renderizarBotoesFases(); // GERA A LISTA DINÂMICA (Aqui resolvemos o bug de sumir)
+  // 1. Carrega dados do usuário (Nome ou "Visitante")
+  await carregarUsuario(); 
+  
+  // 2. Renderiza a lista de exercícios
+  renderizarBotoesFases(); 
 
-  // Configura logout
-  const logoutBtn = document.getElementById('btn-logout')
-  if (logoutBtn) {
-    logoutBtn.addEventListener('click', () => {
-      localStorage.removeItem('token')
-      navigate('login')
-    })
+  // 3. Lógica Inteligente do Botão do Topo
+  const btnHeader = document.getElementById('btn-logout');
+  
+  if (btnHeader) {
+    // Verificamos se o usuário está logado
+    const token = localStorage.getItem('token');
+
+    if (token) {
+      // --- CENÁRIO: LOGADO ---
+      btnHeader.textContent = 'Sair';
+      btnHeader.onclick = () => {
+        localStorage.removeItem('token');
+        navigate('login');
+      };
+    } else {
+      // --- CENÁRIO: VISITANTE ---
+      btnHeader.textContent = 'Fazer Login';
+      btnHeader.onclick = () => {
+        navigate('login');
+      };
+    }
   }
 }
 
+/* Logica para o login */
 async function initLoginPage() {
   const btn = document.getElementById('btn-login')
+  const btnGuest = document.getElementById('btn-guest') // Pegar o novo botão
   const linkReg = document.getElementById('link-register')
+
+  // Navegação para registro
   if (linkReg) linkReg.addEventListener('click', () => navigate('register'))
+  
+  // Lógica do Visitante (Simplesmente vai para a Home sem token)
+  if (btnGuest) {
+    btnGuest.addEventListener('click', () => {
+      // Remove qualquer token antigo para garantir estado de visitante limpo
+      localStorage.removeItem('token'); 
+      navigate('home');
+    })
+  }
+
   if (!btn) return
 
+  // Lógica de Login (Autenticado)
   btn.addEventListener('click', async () => {
     const username = (document.getElementById('username') as HTMLInputElement).value
     const password = (document.getElementById('password') as HTMLInputElement).value
@@ -137,29 +169,41 @@ async function initLoginPage() {
       })
 
       if (!res.ok) {
-        alert('Login falhou')
+        alert('Login falhou: Verifique usuário e senha')
         return
       }
 
       const data = await res.json()
       localStorage.setItem('token', data.token)
-      alert('Login bem-sucedido!')
+      // alert('Login bem-sucedido!') // Opcional: remover para ficar mais fluido
       navigate('home')
     } catch (err) {
       console.error('Erro no login:', err)
+      alert('Erro de conexão com o servidor')
     }
   })
 }
 
 async function initRegisterPage() {
   const btn = document.getElementById('btn-register')
-  const linkLogin = document.getElementById('link-login')
-  if (linkLogin) linkLogin.addEventListener('click', () => navigate('login'))
+  const btnBack = document.getElementById('link-login') // Botão de voltar
+
+  // Configura o botão "Voltar"
+  if (btnBack) {
+    btnBack.addEventListener('click', () => navigate('login'))
+  }
+
   if (!btn) return
 
+  // Lógica do Cadastro
   btn.addEventListener('click', async () => {
     const username = (document.getElementById('reg-username') as HTMLInputElement).value
     const password = (document.getElementById('reg-password') as HTMLInputElement).value
+
+    if (!username || !password) {
+      alert('Por favor, preencha todos os campos.')
+      return
+    }
 
     try {
       const res = await fetch('/auth/register', {
@@ -169,14 +213,15 @@ async function initRegisterPage() {
       })
 
       if (!res.ok) {
-        alert('Registro falhou')
+        alert('Erro: Usuário já existe ou dados inválidos.')
         return
       }
 
-      alert('Usuário registrado! Agora faça login.')
+      alert('Conta criada com sucesso! Faça login.')
       navigate('login')
     } catch (err) {
       console.error('Erro no registro:', err)
+      alert('Erro de conexão.')
     }
   })
 }
@@ -326,4 +371,16 @@ async function navigate(route: keyof typeof routes) {
 }
 
 // Navegação inicial
-navigate('home')
+function startApp() {
+  const token = localStorage.getItem('token');
+  
+  if (token) {
+    // Se já tem token salvo, vai direto pra Home (experiência de app nativo)
+    navigate('home');
+  } else {
+    // Se não tem, manda para o Login
+    navigate('login');
+  }
+}
+
+startApp();

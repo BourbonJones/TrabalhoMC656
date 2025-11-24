@@ -1,6 +1,5 @@
 import './style.css'
 import { loadPage } from './pages.ts'
-// Importa a Engine do jogo
 import { CircuitGame } from './game/CircuitEngine.ts';
 
 // Rotas definidas
@@ -14,6 +13,7 @@ const routes: Record<string, string> = {
   ex4: '/src/pages/exercicios/exercicio4.html',
   ex5: '/src/pages/exercicios/exercicio5.html' 
 }
+
 // --- Integração e Autenticação ---
 
 function getAuthTokenHeader(): Record<string, string> | undefined {
@@ -43,11 +43,9 @@ async function carregarUsuario(): Promise<void> {
   }
 }
 
-
 async function marcarProgresso(faseId: number): Promise<boolean> {
   const headers = getAuthTokenHeader()
   
-
   if (!headers) {
     alert('Parabéns! Você completou o circuito. (Faça login para salvar seu progresso).')
     return false
@@ -71,7 +69,7 @@ async function marcarProgresso(faseId: number): Promise<boolean> {
   }
 }
 
-// --- Inicialização de Páginas ---
+// --- Inicialização de Páginas e UI Dinâmica ---
 
 // Esta função encapsula a criação da UI, resolvendo o Code Smell de duplicação no HTML
 function renderizarBotoesFases() {
@@ -245,13 +243,10 @@ function initLevel(levelId: number) {
     switch (levelId) {
         case 1: // FASE 1: Porta NOT
             setBoardWidth(600);
-            
             new CircuitGame('game-board', {
                 components: [
                     { id: 'in1', type: 'INPUT', x: 50, y: 225, inputs: [], state: true }, 
-                    // Centralizado em 600px
                     { id: 'not1', type: 'NOT', x: 275, y: 225, inputs: ['in1'], state: false },
-                    // Saída no final da caixa pequena
                     { id: 'out1', type: 'OUTPUT', x: 500, y: 225, inputs: ['not1'], state: false }
                 ],
                 wires: [
@@ -262,9 +257,7 @@ function initLevel(levelId: number) {
             break;
 
         case 2: // FASE 2: Porta AND
-            
             setBoardWidth(700);
-            
             new CircuitGame('game-board', {
                 components: [
                     { id: 'in1', type: 'INPUT', x: 50, y: 150, inputs: [], state: false },
@@ -281,9 +274,7 @@ function initLevel(levelId: number) {
             break;
 
         case 3: // FASE 3: Porta OR
-            
             setBoardWidth(700);
-
             new CircuitGame('game-board', {
                 components: [
                     { id: 'in1', type: 'INPUT', x: 50, y: 150, inputs: [], state: false },
@@ -300,9 +291,7 @@ function initLevel(levelId: number) {
             break;
 
         case 4: // FASE 4: Combinado
-            
             setBoardWidth(850);
-
             new CircuitGame('game-board', {
                 components: [
                     { id: 'in1', type: 'INPUT', x: 50, y: 150, inputs: [], state: true },
@@ -321,7 +310,6 @@ function initLevel(levelId: number) {
             break;
 
         case 5: // FASE 5: Desafio
-            
             setBoardWidth(950);
 
             // Definição de colunas fixas para facilitar o layout
@@ -353,7 +341,6 @@ function initLevel(levelId: number) {
             }, onWin);
             break;
     }
-
 }
 
 // --- Navegação ---
@@ -373,17 +360,13 @@ async function navigate(route: keyof typeof routes) {
   } else if (route === 'register') {
     await initRegisterPage()
   } else if (route.startsWith('ex')) {
-    // Configura botão voltar
+    // 1. Configura botão voltar
     const backBtn = document.getElementById('back-home')
     if (backBtn) backBtn.addEventListener('click', () => navigate('home'))
     
-    // Inicializa o jogo
+    // 2. Identifica qual exercício é e inicializa
     const levelId = parseInt(route.replace('ex', ''));
-    // Precisamos garantir que a função initLevel exista e seja importada/definida
-    // (Use a função initLevel definida na resposta anterior com o setBoardWidth)
-    if (typeof initLevel === 'function') {
-        initLevel(levelId);
-    }
+    initLevel(levelId);
   }
 }
 

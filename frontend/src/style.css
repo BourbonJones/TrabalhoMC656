@@ -19,10 +19,10 @@
 
 .exercise-list {
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   gap: 10px;
-  max-width: 200px; 
-  margin: 20px auto; 
+  max-width: 200px;
+  margin: 20px auto;
 }
 
 /* Estilos de Links */
@@ -121,12 +121,14 @@ button:focus-visible {
   font-family: monospace;
   font-weight: bold;
   user-select: none;
+  
+  /* CORREÇÃO CRÍTICA: Garante que os componentes fiquem sobre os fios (Nível 5) */
   position: absolute;
   z-index: 10; 
 }
 
 svg {
-  z-index: 1; /* Garante que fios fiquem atrás */
+  z-index: 1; /* Garante que fios fiquem atrás dos botões */
 }
 
 .component:active {
@@ -187,7 +189,7 @@ svg {
 .component svg path {
     transition: fill 0.3s;
 }
-/* Opcional: Se quiser que a porta inteira acenda levemente */
+/* A porta inteira acende levemente */
 .component.on svg path {
     stroke: #00ff00;
 }

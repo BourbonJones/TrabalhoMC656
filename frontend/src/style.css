@@ -86,14 +86,23 @@ button:focus-visible {
 
 #game-board {
   position: relative;
-
-  height: 500px; 
+  height: auto;    
+  min-height: 500px; 
   background-color: #1e1e1e;
   margin: 20px auto;
   border: 2px solid #444;
   border-radius: 8px;
-  overflow: hidden;
+  overflow: visible;
   transition: width 0.3s ease;
+  padding-bottom: 20px; 
+}
+
+/* Define a área onde os componentes ficam */
+.circuit-area {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  border-bottom: 1px solid #333; /* linha separando o jogo da tabela */
 }
 
 /* Fios (SVG) */
@@ -248,35 +257,329 @@ svg {
 
 /* --- Ajuste do layout home --- */
 
+
+
 header {
   display: flex;
-  flex-direction: column;
+  flex-direction: column;   
   justify-content: center;
   align-items: center;      
-  gap: 15px;               
-  padding: 20px 0;
+  gap: 15px;                
+  
+  
+  background-color: #252525;
+  border: 1px solid #444;
+  border-radius: 16px;
+  padding: 25px 50px;       
   margin-bottom: 30px;
-  border-bottom: 1px solid #444;
-  background-color: rgba(255, 255, 255, 0.05);
-  border-radius: 8px;
+  
+  /* Tamanho ajustado ao conteúdo */
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 
+/* Nome do Usuário */
 .username {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  font-size: 1.5rem;
-  font-weight: bold;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #fff;
   margin: 0;
 }
 
-/* Botão um pouco mais largo para ficar bonito centralizado */
+/* Botão de Perfil (Pílula) */
+.btn-profile-pill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  
+  background: linear-gradient(145deg, #333, #2a2a2a);
+  border: 1px solid #555;
+  color: #ddd;
+  
+  padding: 10px 25px;
+  border-radius: 50px;
+  width: 100%;           
+  
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin: 5px 0;
+}
+
+.btn-profile-pill:hover {
+  border-color: #646cff;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(100, 108, 255, 0.2);
+}
+
+/* Botão Sair  */
 #btn-logout {
   background-color: transparent;
-  border: 1px solid #646cff;
-  color: #646cff;
-  padding: 8px 32px; 
-  font-size: 0.9rem;
-  border-radius: 4px;
+  color: #888;
+  border: 1px solid transparent;
+  padding: 5px 15px; 
+  font-size: 0.8rem;
+  border-radius: 20px;
   cursor: pointer;
   transition: all 0.2s;
   margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
+
+#btn-logout:hover {
+  color: #ff5555;
+  background-color: rgba(255, 85, 85, 0.1);
+  border-color: rgba(255, 85, 85, 0.3);
+}
+
+/* --- Styles da Tabela Verdade  --- */
+
+.game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+
+.truth-table-container {
+  width: 100%;
+  max-width: 600px;
+  background: #252525;
+  border-radius: 8px;
+  padding: 15px;
+  border: 1px solid #444;
+}
+
+.truth-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: #ddd;
+  text-align: center;
+}
+
+.truth-table th, .truth-table td {
+  padding: 10px;
+  border-bottom: 1px solid #444;
+}
+
+.truth-table th {
+  background-color: #333;
+  font-weight: bold;
+  color: #fff;
+}
+
+/* Onde o usuário escolhe 0 ou 1 */
+.truth-select {
+  background: #444;
+  color: white;
+  border: 1px solid #666;
+  padding: 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.truth-select.correct {
+  border-color: #00ff00;
+  color: #00ff00;
+  background-color: rgba(0, 255, 0, 0.1);
+}
+
+.truth-select.error {
+  border-color: #ff4444;
+  color: #ff4444;
+  background-color: rgba(255, 0, 0, 0.1);
+}
+
+#btn-check {
+  margin-top: 15px;
+  width: 100%;
+  padding: 12px;
+  background-color: #646cff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+#btn-check:hover {
+  background-color: #535bf2;
+}
+
+/* --- Modal de Vitória --- */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7); /* Fundo escuro transparente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000; /* Fica acima de tudo */
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-box {
+  background: #252525;
+  border: 2px solid #00ff00; /* Borda verde neon */
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+  max-width: 400px;
+  width: 90%;
+  animation: scaleUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.modal-icon {
+  font-size: 3rem;
+  margin-bottom: 15px;
+  display: block;
+}
+
+.modal-title {
+  color: #fff;
+  font-size: 1.8rem;
+  margin: 0 0 10px 0;
+}
+
+.modal-text {
+  color: #aaa;
+  margin-bottom: 25px;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.btn-modal {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: transform 0.2s;
+}
+
+.btn-modal:active {
+  transform: scale(0.95);
+}
+
+.btn-next {
+  background-color: #00ff00;
+  color: #000;
+}
+
+.btn-menu {
+  background-color: transparent;
+  border: 1px solid #666;
+  color: #fff;
+}
+.btn-menu:hover {
+  border-color: #fff;
+}
+
+/* Animações */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleUp {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* --- Estilos do Header --- */
+.header-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-icon {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: transform 0.2s;
+  padding: 5px;
+}
+.btn-icon:hover {
+  transform: scale(1.2);
+}
+
+/* --- Estilos Internos do Modal de Perfil --- */
+.profile-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin: 20px 0;
+  text-align: center;
+}
+
+.stat-box {
+  background: #333;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #555;
+}
+
+.stat-value {
+  display: block;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #00ff00;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: #aaa;
+}
+
+/* Lista de Conquistas (Badges das Fases) */
+.badges-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.badge {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #444;
+  border: 2px solid #666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #888;
+  transition: all 0.3s;
+}
+
+.badge.earned {
+  background: #00ff00;
+  border-color: #fff;
+  color: #000;
+  box-shadow: 0 0 10px #00ff00;
+}
+

@@ -22,18 +22,6 @@ function mockFetchSuccess(html: string) {
   } as Response);
 }
 
-function mockFetchError(status = 500) {
-  globalThis.fetch = vi.fn().mockResolvedValue({
-    ok: false,
-    status,
-    text: () => Promise.resolve("")
-  } as Response);
-}
-
-function mockFetchReject() {
-  globalThis.fetch = vi.fn().mockRejectedValue(new Error("network error"));
-}
-
 describe("Testes Frontend", () => {
   describe("Carregando elementos da página", () => {
     it("Carregando Exercício 1: PORTA NOT", async () => {
